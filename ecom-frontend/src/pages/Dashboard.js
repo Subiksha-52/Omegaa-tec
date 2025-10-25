@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../api";
 import "./Dashboard.css";
 import "./ProductList.css";
 
@@ -15,23 +16,13 @@ export default function Dashboard() {
       return;
     }
 
-    fetch("/api/auth/me", {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-      },
-    })
+    api.get("/api/auth/me")
       .then(res => {
-        if (res.status === 401) {
-          navigate("/login");
-          return null;
-        }
-        return res.json();
-      })
-      .then(data => {
-        if (data) setUser(data);
+        setUser(res.data);
         setLoading(false);
       })
-      .catch(() => {
+      .catch(err => {
+        console.error('Error fetching user:', err);
         setLoading(false);
         navigate("/login");
       });

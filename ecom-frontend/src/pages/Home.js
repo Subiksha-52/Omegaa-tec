@@ -6,7 +6,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import { CartContext } from "../contexts/CartContext";
 import api from "../api";
 import "./Home.css";
-import Footer from "../components/Footer";
+
 
 // Order Tracking Component
 const OrderTracking = () => {

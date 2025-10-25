@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { FaTh, FaList, FaTag, FaMapMarkerAlt, FaSearch, FaShoppingCart, FaBolt, FaFilter, FaStar, FaHeart, FaEye } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../contexts/NotificationContext';
@@ -26,7 +26,7 @@ const ProductList = () => {
 
   // Fetch categories
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/categories`)
+    api.get('/api/categories')
       .then(res => setCategories(Array.isArray(res.data) ? res.data : []))
       .catch(err => {
         console.error('Error fetching categories:', err);
@@ -37,26 +37,20 @@ const ProductList = () => {
   // Fetch products
   const fetchProducts = (page = currentPage) => {
     setLoading(true);
-    let url = `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/products`;
-    const params = [];
-    if (selectedCategory !== "all") params.push(`category=${encodeURIComponent(selectedCategory)}`);
-    if (search.trim()) params.push(`search=${encodeURIComponent(search.trim())}`);
-    if (minPrice) params.push(`min=${minPrice}`);
-    if (maxPrice) params.push(`max=${maxPrice}`);
-    params.push(`page=${page}`);
-    params.push(`limit=12`);
-    params.push(`sortBy=${sortBy}`);
-    params.push(`sortOrder=${sortOrder}`);
-    if (params.length) url += `?${params.join('&')}`;
+    const params = {};
+    if (selectedCategory !== "all") params.category = selectedCategory;
+    if (search.trim()) params.search = search.trim();
+    if (minPrice) params.min = minPrice;
+    if (maxPrice) params.max = maxPrice;
+    params.page = page;
+    params.limit = 12;
+    params.sortBy = sortBy;
+    params.sortOrder = sortOrder;
 
-    fetch(url)
+    api.get('/api/products', { params })
       .then(res => {
-        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-        return res.json();
-      })
-      .then(data => {
-        setProducts(Array.isArray(data.products) ? data.products : []);
-        setPagination(data.pagination || {});
+        setProducts(Array.isArray(res.data.products) ? res.data.products : []);
+        setPagination(res.data.pagination || {});
         setLoading(false);
       })
       .catch(err => {

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FaSearch, FaShoppingCart, FaUser, FaBars, FaTimes, FaHeart } from 'react-icons/fa';
+import { FaSearch, FaShoppingCart, FaUser, FaBars, FaTimes } from 'react-icons/fa';
 import { AuthContext } from '../contexts/AuthContext';
 import { CartContext } from '../contexts/CartContext';
 import './ModernNavBar.css';
@@ -96,11 +96,6 @@ const ModernNavBar = () => {
               <span>Login</span>
             </Link>
           )}
-
-          <Link to="/wishlist" className="action-btn">
-            <FaHeart />
-            <span className="btn-text">Wishlist</span>
-          </Link>
 
           <Link to="/cart" className="action-btn cart-btn">
             <FaShoppingCart />
