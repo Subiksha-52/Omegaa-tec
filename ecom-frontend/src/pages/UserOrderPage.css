@@ -1,0 +1,345 @@
+/* Flipkart-style User Order Page */
+.user-order-page {
+  min-height: 100vh;
+  background: var(--flipkart-gray-50);
+  padding: var(--spacing-xl);
+  font-family: var(--font-primary);
+  color: var(--flipkart-gray-800);
+}
+
+.user-order-page .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--flipkart-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-xl);
+}
+
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  border-bottom: 2px solid var(--flipkart-gray-200);
+  padding-bottom: var(--spacing-lg);
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--flipkart-blue);
+}
+
+.filter-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.filter-controls label {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--flipkart-gray-700);
+}
+
+.status-filter {
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: 1rem;
+  border: 2px solid var(--flipkart-gray-300);
+  border-radius: var(--radius-md);
+  background: var(--flipkart-white);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  color: var(--flipkart-gray-700);
+}
+
+.status-filter:hover,
+.status-filter:focus {
+  border-color: var(--flipkart-blue);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(40, 116, 240, 0.1);
+}
+
+.no-orders {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #666;
+}
+
+.no-orders h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.no-orders p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.no-orders .btn {
+  background-color: #2874f0;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.no-orders .btn:hover {
+  background-color: #1a52c0;
+}
+
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--spacing-xl);
+}
+
+.order-card {
+  background: var(--flipkart-white);
+  border: 1px solid var(--flipkart-gray-200);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
+  max-height: 500px;
+}
+
+.order-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--flipkart-blue);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.order-info h3 {
+  font-size: 1.25rem;
+  margin: 0;
+  color: #222;
+}
+
+.order-info p {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0.2rem 0 0 0;
+}
+
+.order-status .status-badge {
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.status-pending {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.status-processing {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.status-shipped {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.status-delivered {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.status-cancelled {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.order-details {
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+/* Hide shipping details by default to prevent overlapping */
+.shipping-info {
+  display: none;
+}
+
+.shipping-info.expanded {
+  display: block;
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: var(--flipkart-gray-50);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--flipkart-gray-200);
+}
+
+.order-items h4 {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.order-item {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  align-items: center;
+  padding: 0.25rem 0;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+.item-name {
+  color: #444;
+  padding-left: 0.5rem;
+}
+
+.item-quantity {
+  text-align: center;
+  color: #666;
+}
+
+.item-price {
+  text-align: right;
+  font-weight: 600;
+  color: #222;
+}
+
+.order-summary {
+  border-top: 1px solid #ddd;
+  padding-top: 0.75rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.3rem;
+}
+
+.summary-row.discount {
+  color: #d9534f;
+}
+
+.summary-row.total {
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-top: 1px solid #ccc;
+  padding-top: 0.5rem;
+}
+
+.shipping-info,
+.address-info {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.shipping-info h4,
+.address-info h4 {
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.order-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.order-actions .btn {
+  flex: 1 1 auto;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.order-actions .btn-secondary {
+  background: var(--flipkart-gray-600);
+  color: var(--flipkart-white);
+  border: 2px solid transparent;
+}
+
+.order-actions .btn-secondary:hover {
+  background: var(--flipkart-gray-700);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.order-actions .btn-primary {
+  background: var(--flipkart-blue);
+  color: var(--flipkart-white);
+  border: 2px solid transparent;
+}
+
+.order-actions .btn-primary:hover {
+  background: var(--flipkart-blue-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.order-actions .btn-danger {
+  background: var(--flipkart-red);
+  color: var(--flipkart-white);
+  border: 2px solid transparent;
+}
+
+.order-actions .btn-danger:hover {
+  background: #c53030;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Loading and error states */
+
+.loading-container,
+.error-container {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #666;
+}
+
+.loading-spinner {
+  border: 6px solid var(--flipkart-gray-200);
+  border-top: 6px solid var(--flipkart-blue);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 1rem auto;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

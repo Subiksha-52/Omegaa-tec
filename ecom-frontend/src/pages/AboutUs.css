@@ -1,0 +1,207 @@
+.aboutus2-container {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #222;
+  background: #f4f8fb;
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+
+.aboutus2-hero {
+  background: linear-gradient(90deg, #dbeafe 0%, #60a5fa 100%);
+  padding: 48px 20px 32px 20px;
+  text-align: center;
+  border-radius: 0 0 32px 32px;
+  box-shadow: 0 4px 24px rgba(96, 165, 250, 0.15);
+}
+
+.aboutus2-hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+  color: #2563eb;
+}
+
+.aboutus2-hero p {
+  font-size: 1.2rem;
+  margin-bottom: 32px;
+  color: #355c7d;
+}
+
+.aboutus2-stats {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  margin-top: 16px;
+  font-size: 1.5rem;
+}
+
+.aboutus2-stats div {
+  background: #fff;
+  border-radius: 16px;
+  padding: 18px 32px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  font-weight: bold;
+  min-width: 120px;
+  transition: transform 0.2s, background 0.2s;
+  color: #2563eb;
+}
+
+.aboutus2-stats div:hover {
+  transform: scale(1.07) rotate(-2deg);
+  background: #dbeafe;
+}
+
+.aboutus2-stats span {
+  display: block;
+  font-size: 1rem;
+  color: #3b82f6;
+  font-weight: normal;
+  margin-top: 4px;
+}
+
+.aboutus2-cards {
+  margin: 48px 0 0 0;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+}
+
+.aboutus2-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  padding: 28px 22px 22px 22px;
+  width: 320px;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+}
+
+.aboutus2-card:hover {
+  transform: translateY(-8px) scale(1.04) rotate(1deg);
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.18);
+  background: linear-gradient(90deg, #dbeafe 0%, #60a5fa 100%);
+}
+
+.aboutus2-card h2 {
+  color: #2563eb;
+  margin-bottom: 10px;
+}
+
+.aboutus2-card ul {
+  padding-left: 18px;
+  margin: 0;
+  color: #355c7d;
+}
+
+.aboutus2-products {
+  margin: 64px 0 0 0;
+  text-align: center;
+}
+
+.aboutus2-products h2 {
+  font-size: 2rem;
+  margin-bottom: 24px;
+  color: #2563eb;
+}
+
+.aboutus2-products-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+}
+
+.aboutus2-product-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  padding: 24px 18px 18px 18px;
+  width: 260px;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.aboutus2-product-card:hover {
+  transform: translateY(-8px) scale(1.04) rotate(-1deg);
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.18);
+  background: linear-gradient(90deg, #dbeafe 0%, #60a5fa 100%);
+}
+
+.aboutus2-product-card img {
+  width: 90px;
+  height: 90px;
+  border-radius: 16px;
+  object-fit: cover;
+  margin-bottom: 14px;
+  border: 3px solid #2563eb;
+  transition: border 0.2s;
+}
+
+.aboutus2-product-card:hover img {
+  border: 3px solid #fff;
+}
+
+.aboutus2-product-card h3 {
+  margin: 0 0 6px 0;
+  font-size: 1.1rem;
+  color: #2563eb;
+}
+
+.aboutus2-product-card p {
+  font-size: 0.98rem;
+  color: #355c7d;
+}
+
+.aboutus2-cta {
+  margin: 64px auto 0 auto;
+  text-align: center;
+  background: #e0f2fe;
+  padding: 36px 20px 32px 20px;
+  border-radius: 24px;
+  max-width: 500px;
+  box-shadow: 0 2px 16px rgba(96, 165, 250, 0.12);
+}
+
+.aboutus2-cta h2 {
+  color: #2563eb;
+  margin-bottom: 10px;
+}
+
+.aboutus2-contact-btn {
+  margin-top: 18px;
+  padding: 12px 36px;
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.08);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.aboutus2-contact-btn:hover {
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  transform: scale(1.05);
+}
+
+@media (max-width: 900px) {
+  .aboutus2-cards,
+  .aboutus2-products-list {
+    flex-direction: column;
+    align-items: center;
+  }
+  .aboutus2-stats {
+    flex-direction: column;
+    gap: 18px;
+  }
+} 

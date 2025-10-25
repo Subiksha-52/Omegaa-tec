@@ -1,0 +1,751 @@
+/* Flipkart-style Dashboard */
+.flipkart-dashboard {
+  min-height: 100vh;
+  background: var(--flipkart-gray-50);
+  padding: 0;
+  font-family: var(--font-primary);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Ensure proper navbar integration */
+.flipkart-dashboard .flipkart-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+/* Loading Container */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  color: var(--flipkart-gray-600);
+  animation: fadeIn 0.5s ease-out;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid var(--flipkart-gray-200);
+  border-top: 4px solid var(--flipkart-blue);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-container p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Error Container */
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  color: var(--flipkart-gray-600);
+  text-align: center;
+  padding: 20px;
+  animation: slideInUp 0.8s ease-out;
+}
+
+.error-container h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: var(--flipkart-red);
+}
+
+.error-container p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+/* Header */
+.dashboard-header {
+  background: var(--flipkart-white);
+  color: var(--flipkart-gray-800);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+  border-bottom: 1px solid var(--flipkart-gray-200);
+  position: relative;
+  overflow: hidden;
+  animation: slideInDown 0.8s ease-out;
+  margin-top: 80px; /* Account for fixed navbar */
+}
+
+.header-content h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--flipkart-blue);
+  animation: fadeInLeft 0.8s ease-out 0.2s both;
+}
+
+.header-content p {
+  font-size: 1.1rem;
+  opacity: 0.8;
+  margin: 8px 0 0 0;
+  color: var(--flipkart-gray-600);
+  animation: fadeInLeft 0.8s ease-out 0.4s both;
+}
+
+/* Main Layout */
+.dashboard-main {
+  display: flex;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+  gap: var(--spacing-xl);
+  animation: fadeInUp 1s ease-out 0.6s both;
+}
+
+/* Sidebar */
+.dashboard-sidebar {
+  width: 320px;
+  flex-shrink: 0;
+  animation: slideInLeft 0.8s ease-out 0.8s both;
+}
+
+.user-profile-card {
+  background: var(--flipkart-white);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--spacing-xl);
+  border: 1px solid var(--flipkart-gray-200);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+.user-profile-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--flipkart-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--flipkart-white);
+  font-size: 40px;
+  margin: 0 auto var(--spacing-lg) auto;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal);
+}
+
+.profile-avatar:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-lg);
+}
+
+.profile-info h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 var(--spacing-md) 0;
+  color: var(--flipkart-gray-800);
+  text-align: center;
+}
+
+.profile-info p {
+  color: var(--flipkart-gray-600);
+  margin: 6px 0;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.member-since {
+  color: var(--flipkart-gray-600);
+  font-size: 0.9rem;
+  margin-top: var(--spacing-md);
+  text-align: center;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+}
+
+.member-since svg {
+  color: var(--flipkart-orange);
+  font-size: 1rem;
+}
+
+/* Navigation */
+.dashboard-nav {
+  background: var(--flipkart-white);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--flipkart-gray-200);
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  color: var(--flipkart-gray-600);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-normal);
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: var(--spacing-sm);
+}
+
+.nav-item:hover {
+  background: var(--flipkart-gray-100);
+  color: var(--flipkart-blue);
+  transform: translateX(4px);
+}
+
+.nav-item.active {
+  background: var(--flipkart-blue);
+  color: var(--flipkart-white);
+  box-shadow: var(--shadow-md);
+  transform: translateX(4px);
+  border-left: 4px solid var(--flipkart-blue-dark);
+  padding-left: calc(var(--spacing-lg) - 4px);
+}
+
+.nav-item svg {
+  width: 20px;
+  height: 20px;
+  transition: all var(--transition-normal);
+}
+
+.nav-item:hover svg,
+.nav-item.active svg {
+  transform: scale(1.1);
+}
+
+/* Main Content */
+.dashboard-content {
+  flex: 1;
+  min-width: 0;
+  animation: fadeInRight 0.8s ease-out 1s both;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.stat-card {
+  background: var(--flipkart-white);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  border: 1px solid var(--flipkart-gray-200);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+  animation: fadeInScale 0.8s ease-out both;
+}
+
+.stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stat-card:nth-child(2) { animation-delay: 0.2s; }
+.stat-card:nth-child(3) { animation-delay: 0.3s; }
+.stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.stat-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--flipkart-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--flipkart-white);
+  font-size: 24px;
+  margin: 0 auto var(--spacing-lg) auto;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal);
+}
+
+.stat-card:hover .stat-icon {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-lg);
+}
+
+.stat-content h3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--flipkart-gray-800);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.stat-content p {
+  color: var(--flipkart-gray-600);
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Orders Section */
+.orders-section {
+  background: var(--flipkart-white);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--spacing-xl);
+  border: 1px solid var(--flipkart-gray-200);
+  animation: fadeInUp 0.8s ease-out both;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.section-header h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--flipkart-gray-800);
+  margin: 0;
+}
+
+.view-all {
+  color: var(--flipkart-blue);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  position: relative;
+  transition: all var(--transition-normal);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  background: var(--flipkart-gray-50);
+  border: 1px solid var(--flipkart-gray-200);
+}
+
+.view-all:hover {
+  color: var(--flipkart-blue-dark);
+  background: var(--flipkart-blue-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.order-card {
+  border: 1px solid var(--flipkart-gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  transition: all var(--transition-normal);
+  background: var(--flipkart-white);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInScale 0.6s ease-out both;
+}
+
+.order-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+  border-color: var(--flipkart-blue);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-md);
+}
+
+.order-id {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--flipkart-gray-800);
+  margin: 0;
+}
+
+.order-date {
+  font-size: 0.9rem;
+  color: var(--flipkart-gray-600);
+  margin: 4px 0 0 0;
+}
+
+.order-status {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-pending {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.status-processing {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.status-delivered {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.status-cancelled {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.order-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--flipkart-gray-800);
+}
+
+.order-actions {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.btn {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--flipkart-blue);
+  color: var(--flipkart-blue);
+}
+
+.btn-outline:hover {
+  background: var(--flipkart-blue);
+  color: var(--flipkart-white);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary {
+  background: var(--flipkart-blue);
+  color: var(--flipkart-white);
+  border: 2px solid transparent;
+}
+
+.btn-primary:hover {
+  background: var(--flipkart-blue-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Empty States */
+.empty-state {
+  text-align: center;
+  padding: 60px 40px;
+  color: var(--flipkart-gray-600);
+  animation: fadeIn 1s ease-out;
+}
+
+.empty-state svg {
+  color: var(--flipkart-gray-400);
+  margin-bottom: var(--spacing-lg);
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 var(--spacing-md) 0;
+  color: var(--flipkart-gray-800);
+}
+
+.empty-state p {
+  margin: 0 0 var(--spacing-xl) 0;
+  font-size: 1rem;
+}
+
+.empty-state .btn {
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-size: 1rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
+/* Admin Order Controls */
+.admin-order-controls {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--flipkart-gray-200);
+}
+
+.admin-order-controls h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--flipkart-gray-700);
+  margin-bottom: var(--spacing-md);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .dashboard-main {
+    padding: var(--spacing-lg);
+    gap: var(--spacing-lg);
+  }
+
+  .dashboard-sidebar {
+    width: 280px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .orders-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .flipkart-dashboard {
+    padding: 0;
+  }
+
+  .dashboard-main {
+    flex-direction: column;
+    padding: var(--spacing-lg);
+    gap: var(--spacing-lg);
+  }
+
+  .dashboard-sidebar {
+    width: 100%;
+  }
+
+  .dashboard-header {
+    padding: var(--spacing-lg);
+  }
+
+  .header-content h1 {
+    font-size: 2rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .stat-card {
+    padding: var(--spacing-lg);
+  }
+
+  .orders-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .order-header {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .order-details {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    text-align: center;
+  }
+
+  .order-actions {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .section-header {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-header {
+    padding: var(--spacing-md);
+  }
+
+  .header-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .dashboard-main {
+    padding: var(--spacing-md);
+  }
+
+  .user-profile-card {
+    padding: var(--spacing-lg);
+  }
+
+  .profile-avatar {
+    width: 80px;
+    height: 80px;
+    font-size: 32px;
+  }
+
+  .stat-card {
+    padding: var(--spacing-lg);
+  }
+
+  .stat-icon {
+    width: 56px;
+    height: 56px;
+    font-size: 20px;
+  }
+
+  .stat-content h3 {
+    font-size: 2rem;
+  }
+
+  .orders-section {
+    padding: var(--spacing-lg);
+  }
+
+  .order-card {
+    padding: var(--spacing-lg);
+  }
+}

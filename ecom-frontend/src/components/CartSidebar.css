@@ -1,0 +1,385 @@
+/* Flipkart-style Cart Sidebar */
+.cart-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 100vh;
+  background: var(--flipkart-white);
+  box-shadow: var(--shadow-xl);
+  z-index: 1000;
+  padding: 0;
+  overflow: hidden;
+  transform: translateX(100%);
+  transition: transform var(--transition-normal);
+  border-left: 1px solid var(--flipkart-gray-200);
+}
+
+.cart-sidebar.open {
+  transform: translateX(0);
+}
+
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-lg);
+  background: var(--flipkart-white);
+  border-bottom: 1px solid var(--flipkart-gray-200);
+  position: relative;
+}
+
+.cart-header h2 {
+  margin: 0;
+  color: var(--flipkart-gray-800);
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--flipkart-gray-600);
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-btn:hover {
+  background: var(--flipkart-gray-100);
+  color: var(--flipkart-gray-800);
+}
+
+.cart-content {
+  padding: var(--spacing-lg);
+  height: calc(100vh - 200px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--flipkart-gray-300) var(--flipkart-gray-100);
+}
+
+.cart-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cart-content::-webkit-scrollbar-track {
+  background: var(--flipkart-gray-100);
+  border-radius: 3px;
+}
+
+.cart-content::-webkit-scrollbar-thumb {
+  background: var(--flipkart-gray-300);
+  border-radius: 3px;
+}
+
+.cart-content::-webkit-scrollbar-thumb:hover {
+  background: var(--flipkart-gray-400);
+}
+
+.empty-cart {
+  text-align: center;
+  color: var(--flipkart-gray-600);
+  padding: 3rem 1rem;
+  background: var(--flipkart-gray-50);
+  border-radius: var(--radius-lg);
+  margin: 2rem 0;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.empty-cart::before {
+  content: '🛒';
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.cart-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-lg);
+  background: var(--flipkart-white);
+  border: 1px solid var(--flipkart-gray-200);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  animation: slideInRight 0.5s ease-out;
+  animation-fill-mode: both;
+}
+
+.cart-item:nth-child(1) { animation-delay: 0.1s; }
+.cart-item:nth-child(2) { animation-delay: 0.2s; }
+.cart-item:nth-child(3) { animation-delay: 0.3s; }
+.cart-item:nth-child(4) { animation-delay: 0.4s; }
+.cart-item:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.cart-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.cart-item-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  margin-right: var(--spacing-md);
+  border: 2px solid var(--flipkart-gray-200);
+  transition: all var(--transition-normal);
+}
+
+.cart-item:hover .cart-item-image {
+  transform: scale(1.05);
+  border-color: var(--flipkart-blue);
+}
+
+.cart-item-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.cart-item-name {
+  margin: 0 0 var(--spacing-sm) 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--flipkart-gray-800);
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cart-item-price {
+  margin: var(--spacing-xs) 0;
+  font-size: 0.85rem;
+  color: var(--flipkart-green);
+  font-weight: 600;
+}
+
+.cart-item-quantity {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+}
+
+.quantity-btn {
+  background: var(--flipkart-gray-100);
+  border: 1px solid var(--flipkart-gray-300);
+  color: var(--flipkart-gray-700);
+  border-radius: var(--radius-sm);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.quantity-btn:hover {
+  background: var(--flipkart-blue);
+  color: var(--flipkart-white);
+  border-color: var(--flipkart-blue);
+}
+
+.quantity-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--flipkart-gray-700);
+  min-width: 20px;
+  text-align: center;
+}
+
+.remove-btn {
+  background: var(--flipkart-gray-100);
+  border: 1px solid var(--flipkart-gray-300);
+  color: var(--flipkart-red);
+  border-radius: var(--radius-sm);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 0.8rem;
+  margin-left: var(--spacing-sm);
+}
+
+.remove-btn:hover {
+  background: var(--flipkart-red);
+  color: var(--flipkart-white);
+  border-color: var(--flipkart-red);
+}
+
+.cart-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--flipkart-white);
+  border-top: 1px solid var(--flipkart-gray-200);
+  padding: var(--spacing-lg);
+}
+
+.total-amount {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: var(--flipkart-gray-50);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--flipkart-gray-200);
+}
+
+.total-amount h3 {
+  margin: 0;
+  color: var(--flipkart-gray-800);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.total-price {
+  color: var(--flipkart-green);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: var(--spacing-md);
+  background: var(--flipkart-blue);
+  color: var(--flipkart-white);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.checkout-btn:hover {
+  background: var(--flipkart-blue-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.checkout-btn:active {
+  transform: translateY(0);
+}
+
+.view-cart-btn {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--flipkart-gray-100);
+  color: var(--flipkart-blue);
+  border: 1px solid var(--flipkart-gray-300);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  margin-top: var(--spacing-sm);
+}
+
+.view-cart-btn:hover {
+  background: var(--flipkart-gray-200);
+  transform: translateY(-1px);
+}
+
+/* Loading Animation */
+.cart-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--flipkart-gray-200);
+  border-left: 4px solid var(--flipkart-blue);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .cart-sidebar {
+    width: 100vw;
+  }
+
+  .cart-header {
+    padding: var(--spacing-lg) var(--spacing-md) var(--spacing-md);
+  }
+
+  .cart-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .cart-content {
+    padding: var(--spacing-md);
+  }
+
+  .cart-item {
+    padding: var(--spacing-sm);
+  }
+
+  .cart-item-image {
+    width: 50px;
+    height: 50px;
+  }
+
+  .cart-footer {
+    padding: var(--spacing-md);
+  }
+}

@@ -1,0 +1,87 @@
+body, .product-admin-page {
+  background: #f5faff;
+}
+
+/* Container styling */
+.ProductAdmin-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+/* Form styling */
+.ProductAdmin-container form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+  align-items: center;
+}
+
+.ProductAdmin-container input,
+.ProductAdmin-container select,
+.ProductAdmin-container button {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.ProductAdmin-container input[type="file"] {
+  border: none;
+}
+
+.ProductAdmin-container button {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.ProductAdmin-container button:hover {
+  background: #125ea2;
+}
+
+/* Product list styling */
+.ProductAdmin-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.ProductAdmin-container li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.ProductAdmin-container img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.ProductAdmin-container form[onsubmit] {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-left: auto;
+}
+
+@media (max-width: 600px) {
+  .ProductAdmin-container {
+    padding: 8px;
+  }
+  .ProductAdmin-container li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}

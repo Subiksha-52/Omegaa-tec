@@ -1,0 +1,68 @@
+/* ProfileSettings.css */
+
+.dashboard-container {
+  max-width: 500px;
+  margin: 40px auto;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-8) var(--space-6);
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.profile-form label {
+  font-weight: 500;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.profile-form input {
+  padding: var(--space-3);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  background: var(--bg-tertiary);
+  transition: border 0.2s;
+}
+
+.profile-form input:focus {
+  border: 1.5px solid var(--border-focus);
+  outline: none;
+  background: #fff;
+}
+
+.profile-form button {
+  margin-top: var(--space-2);
+  padding: var(--space-3);
+  background: var(--primary-600);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.profile-form button:hover {
+  background: var(--primary-700);
+}
+
+.profile-message {
+  margin-top: var(--space-4);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--success-50);
+  color: var(--success-600);
+  font-weight: 500;
+  font-size: 1rem;
+  box-shadow: var(--shadow-sm);
+}

@@ -1,0 +1,30 @@
+/* OrderSuccess.css or PageBackground.css */
+.page-background {
+  min-height: 100vh;
+  background: linear-gradient(120deg, #f7cac9 0%, #f9fbe7 50%, #92a8d1 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.order-success-container {
+  background: rgba(255,255,255,0.85);
+  border-radius: 16px;
+  padding: 36px 28px;
+  max-width: 420px;
+  margin: 60px auto;
+  box-shadow: 0 4px 24px rgba(225, 112, 85, 0.10);
+  text-align: center;
+}
+
+.order-success-home-link {
+  display: inline-block;
+  margin-top: 18px;
+  color: #e17055;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.order-success-home-link:hover {
+  text-decoration: underline;
+}

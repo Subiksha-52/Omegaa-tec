@@ -1,0 +1,608 @@
+/* Flipkart-style Product List */
+.flipkart-product-list {
+  background: var(--flipkart-gray-50);
+  min-height: 100vh;
+  padding-top: 56px; /* Account for fixed navbar */
+}
+
+.product-list-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+}
+
+/* Sidebar */
+.product-sidebar {
+  width: 250px;
+  background: var(--flipkart-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-lg);
+  height: fit-content;
+  position: sticky;
+  top: 80px;
+}
+
+.sidebar-section {
+  margin-bottom: var(--spacing-xl);
+}
+
+.sidebar-section:last-child {
+  margin-bottom: 0;
+}
+
+.sidebar-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--flipkart-gray-800);
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.category-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.category-item {
+  padding: var(--spacing-sm) var(--spacing-md);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  color: var(--flipkart-gray-600);
+  font-size: 0.9rem;
+}
+
+.category-item:hover {
+  background: var(--flipkart-gray-100);
+  color: var(--flipkart-blue);
+}
+
+.category-item.active {
+  background: var(--flipkart-blue);
+  color: var(--flipkart-white);
+}
+
+.price-filter {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.price-input {
+  flex: 1;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--flipkart-gray-300);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+}
+
+.price-separator {
+  color: var(--flipkart-gray-500);
+  font-weight: 600;
+}
+
+.apply-filter-btn {
+  background: var(--flipkart-blue);
+  color: var(--flipkart-white);
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.apply-filter-btn:hover {
+  background: var(--flipkart-blue-dark);
+}
+
+.filter-option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.filter-option input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--flipkart-blue);
+}
+
+.filter-option label {
+  font-size: 0.9rem;
+  color: var(--flipkart-gray-600);
+  cursor: pointer;
+}
+
+/* Main Content */
+.product-main-content {
+  flex: 1;
+  background: var(--flipkart-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-lg);
+}
+
+.product-header {
+  margin-bottom: var(--spacing-xl);
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.page-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--flipkart-gray-800);
+  margin: 0;
+}
+
+.view-toggle {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.view-button {
+  padding: var(--spacing-sm);
+  border: 1px solid var(--flipkart-gray-300);
+  background: var(--flipkart-white);
+  color: var(--flipkart-gray-600);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+}
+
+.view-button:hover {
+  border-color: var(--flipkart-blue);
+  color: var(--flipkart-blue);
+}
+
+.view-button.active {
+  background: var(--flipkart-blue);
+  color: var(--flipkart-white);
+  border-color: var(--flipkart-blue);
+}
+
+.search-sort-row {
+  display: flex;
+  gap: var(--spacing-lg);
+  align-items: center;
+}
+
+.search-form {
+  flex: 1;
+  display: flex;
+  position: relative;
+  max-width: 400px;
+}
+
+.search-input {
+  flex: 1;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 2px solid var(--flipkart-gray-200);
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  font-size: 0.9rem;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.search-input:focus {
+  border-color: var(--flipkart-blue);
+}
+
+.search-button {
+  background: var(--flipkart-blue);
+  color: var(--flipkart-white);
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.search-button:hover {
+  background: var(--flipkart-blue-dark);
+}
+
+.sort-group {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.sort-label {
+  font-size: 0.9rem;
+  color: var(--flipkart-gray-600);
+  font-weight: 500;
+}
+
+.sort-select {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--flipkart-gray-300);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  background: var(--flipkart-white);
+  cursor: pointer;
+  min-width: 150px;
+}
+
+/* Product Grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.product-grid.list-view {
+  grid-template-columns: 1fr;
+}
+
+.product-card {
+  background: var(--flipkart-white);
+  border: 1px solid var(--flipkart-gray-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 400px;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--flipkart-blue);
+}
+
+.product-card.list-view {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-lg);
+}
+
+.product-image-container {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.product-card.list-view .product-image-container {
+  width: 200px;
+  height: 150px;
+  flex-shrink: 0;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+  cursor: pointer;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.05);
+}
+
+.discount-badge {
+  position: absolute;
+  top: var(--spacing-sm);
+  left: var(--spacing-sm);
+  background: var(--flipkart-orange);
+  color: var(--flipkart-white);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.product-actions-overlay {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.product-card:hover .product-actions-overlay {
+  opacity: 1;
+}
+
+.action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--flipkart-white);
+  color: var(--flipkart-gray-600);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-fast);
+}
+
+.action-btn:hover {
+  background: var(--flipkart-blue);
+  color: var(--flipkart-white);
+  transform: scale(1.1);
+}
+
+.product-info {
+  padding: var(--spacing-lg);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--flipkart-white);
+  color: var(--flipkart-gray-800);
+}
+
+.product-card.list-view .product-info {
+  flex: 1;
+  padding: 0 0 0 var(--spacing-lg);
+}
+
+.product-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--flipkart-gray-800);
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.4;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.product-name:hover {
+  color: var(--flipkart-blue);
+}
+
+.product-brand {
+  font-size: 0.85rem;
+  color: var(--flipkart-gray-500);
+  margin-bottom: var(--spacing-sm);
+}
+
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
+}
+
+.rating-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.rating-star {
+  font-size: 0.75rem;
+  color: var(--flipkart-gray-300);
+}
+
+.rating-star.filled {
+  color: #fbbf24;
+}
+
+.rating-count {
+  font-size: 0.8rem;
+  color: var(--flipkart-gray-500);
+}
+
+.product-price-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.current-price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--flipkart-gray-800);
+}
+
+.original-price {
+  font-size: 1rem;
+  color: var(--flipkart-gray-500);
+  text-decoration: line-through;
+}
+
+.discount-text {
+  font-size: 0.8rem;
+  color: var(--flipkart-green);
+  font-weight: 600;
+}
+
+.product-location {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: 0.8rem;
+  color: var(--flipkart-gray-500);
+  margin-bottom: var(--spacing-md);
+}
+
+.product-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-top: auto;
+  padding-top: var(--spacing-md);
+}
+
+.add-to-cart-btn, .buy-now-btn {
+  flex: 1;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+}
+
+.add-to-cart-btn {
+  background: var(--flipkart-gray-100);
+  color: var(--flipkart-gray-700);
+  border: 1px solid var(--flipkart-gray-300);
+}
+
+.add-to-cart-btn:hover {
+  background: var(--flipkart-gray-200);
+  border-color: var(--flipkart-gray-400);
+}
+
+.buy-now-btn {
+  background: var(--flipkart-blue);
+  color: var(--flipkart-white);
+}
+
+.buy-now-btn:hover {
+  background: var(--flipkart-blue-dark);
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--flipkart-gray-200);
+}
+
+.page-button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--flipkart-gray-300);
+  background: var(--flipkart-white);
+  color: var(--flipkart-gray-600);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 0.9rem;
+}
+
+.page-button:hover:not(:disabled) {
+  border-color: var(--flipkart-blue);
+  color: var(--flipkart-blue);
+}
+
+.page-button.active {
+  background: var(--flipkart-blue);
+  color: var(--flipkart-white);
+  border-color: var(--flipkart-blue);
+}
+
+.page-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Loading */
+.loading-text {
+  text-align: center;
+  padding: var(--spacing-xl);
+  color: var(--flipkart-gray-600);
+  font-size: 1.1rem;
+}
+
+/* Results Info */
+.results-info {
+  text-align: center;
+  color: var(--flipkart-gray-600);
+  font-size: 0.9rem;
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--flipkart-gray-200);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .product-list-container {
+    flex-direction: column;
+    padding: var(--spacing-md);
+  }
+
+  .product-sidebar {
+    width: 100%;
+    position: static;
+    order: 2;
+  }
+
+  .product-main-content {
+    order: 1;
+  }
+
+  .search-sort-row {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .search-form {
+    max-width: 100%;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+  }
+
+  .product-card.list-view {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .product-card.list-view .product-image-container {
+    width: 100%;
+    height: 200px;
+  }
+
+  .product-card.list-view .product-info {
+    padding: var(--spacing-lg) 0 0 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  .product-actions {
+    flex-direction: column;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+}
