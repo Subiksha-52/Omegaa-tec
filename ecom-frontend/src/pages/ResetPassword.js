@@ -75,7 +75,7 @@ const ResetPassword = () => {
     }
 
     try {
-      const response = await axios.post(`http://localhost:5000/api/auth/reset-password`, {
+      const response = await axios.post(`https://omegaa-tec-1.onrender.com/api/auth/reset-password`, {
         token,
         newPassword
       });

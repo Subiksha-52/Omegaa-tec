@@ -231,7 +231,7 @@ const addToCart = async (productId, quantity) => {
               >
                 <div className="product-image-container">
                   <img
-                    src={`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}${product.image}`}
+                    src={`https://omegaa-tec-1.onrender.com${product.image}`}
                     alt={product.name}
                     className="product-image"
                     onClick={() => handleProductClick(product._id)}
@@ -294,13 +294,6 @@ const addToCart = async (productId, quantity) => {
                   )}
 
                   <div className="product-actions">
-                    <button
-                      className="add-to-cart-btn"
-                      onClick={e => { e.stopPropagation(); addToCart(product._id, 1); }}
-                    >
-                      <FaShoppingCart />
-                      Add to Cart
-                    </button>
                     <button
                       className="buy-now-btn"
                       onClick={e => { e.stopPropagation(); handleBuyNow(product); }}

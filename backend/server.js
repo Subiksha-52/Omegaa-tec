@@ -21,7 +21,7 @@ app.use(express.json());
 // -------------------------------------------
 app.use(
   cors({
-    origin: ['https://omegaa-tec-47ld.vercel.app'],
+    origin: [process.env.FRONTEND_URL || 'https://omegaa-tec-47ld.vercel.app'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],

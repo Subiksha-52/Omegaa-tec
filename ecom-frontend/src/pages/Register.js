@@ -110,7 +110,7 @@ const Register = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/api/auth/register`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL || 'https://omegaa-tec-1.onrender.com'}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
@@ -137,7 +137,7 @@ const Register = () => {
 
   const resendOtp = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/auth/resend-otp`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL || 'https://omegaa-tec-1.onrender.com'}/api/auth/resend-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email })
@@ -161,7 +161,7 @@ const Register = () => {
     setLoading(true);
 
     try {
-      const res = await fetch(`http://localhost:5000/api/auth/verify`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL || 'https://omegaa-tec-1.onrender.com'}/api/auth/verify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, ...codes })

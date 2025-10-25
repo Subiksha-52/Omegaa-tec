@@ -97,11 +97,7 @@ const ModernNavBar = () => {
             </Link>
           )}
 
-          <Link to="/cart" className="action-btn cart-btn">
-            <FaShoppingCart />
-            <span className="btn-text">Cart</span>
-            {cartItemCount > 0 && <span className="cart-badge">{cartItemCount}</span>}
-          </Link>
+
         </div>
 
         {/* Mobile Menu Toggle */}

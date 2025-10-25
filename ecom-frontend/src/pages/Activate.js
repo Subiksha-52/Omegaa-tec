@@ -7,7 +7,7 @@ const Activate = () => {
   const [msg, setMsg] = useState('Activating...');
 
   useEffect(() => {
-  fetch(`http://localhost:5000/api/auth/activate/${token}`)
+  fetch(`https://omegaa-tec-1.onrender.com/api/auth/activate/${token}`)
       .then(res => res.json())
       .then(data => setMsg(data.msg));
   }, [token]);
