@@ -70,7 +70,8 @@ export default function OrderTracking() {
       const response = await api.get('/api/orders/user');
       setUserOrders(response.data);
     } catch (err) {
-      console.error('Failed to fetch user orders:', err);
+      // Log detailed error info to help debugging (network / server response / message)
+      console.error('Failed to fetch user orders:', err?.response?.data || err?.response?.status || err?.message || err);
     }
   };
 

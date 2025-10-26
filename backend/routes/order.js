@@ -161,8 +161,15 @@ router.get('/:orderId/tracking', auth, async (req, res) => {
       return res.status(404).json({ error: 'Order not found' });
     }
 
-    // Check if user owns this order
-    if (order.userId.toString() !== req.user.id) {
+    // Debug logging to help trace 403 errors
+    try {
+      console.log(`Order tracking requested: order.userId=${order.userId?.toString()} req.user.id=${req.user?.id} req.user.role=${req.user?.role}`);
+    } catch (dbgErr) {
+      console.warn('Order tracking debug log failed', dbgErr);
+    }
+
+    // Allow admin users to view any order; regular users can view only their own orders
+    if (req.user?.role !== 'admin' && order.userId.toString() !== req.user.id) {
       return res.status(403).json({ error: 'Access denied' });
     }
 
