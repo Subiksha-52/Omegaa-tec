@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import api from '../api';
 import { AuthContext } from '../contexts/AuthContext';
+import './AdminProducts.css';
 
 const AdminProducts = () => {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [showAddForm, setShowAddForm] = useState(false);
@@ -25,7 +27,18 @@ const AdminProducts = () => {
 
   useEffect(() => {
     fetchProducts();
+    fetchCategories();
   }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await api.get('/api/categories');
+      setCategories(response.data);
+    } catch (err) {
+      console.error('Error fetching categories:', err);
+      setCategories([]);
+    }
+  };
 
   const fetchProducts = async () => {
     try {
@@ -174,14 +187,20 @@ const AdminProducts = () => {
                 onChange={handleInputChange}
                 required
               />
-              <input
-                type="text"
+              <select
                 name="category"
-                placeholder="Category"
                 value={formData.category}
                 onChange={handleInputChange}
                 required
-              />
+                className="category-select"
+              >
+                <option value="">Select Category</option>
+                {categories.map(category => (
+                  <option key={category._id} value={category.name}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="form-row">
               <input
