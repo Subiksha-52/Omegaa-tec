@@ -29,14 +29,12 @@ const sendOTPEmail = async (email, otp) => {
   try {
     const nodemailer = require('nodemailer');
 
-    // Create transporter using Mailgun SMTP
+    // Create transporter using Gmail SMTP
     const transporter = nodemailer.createTransport({
-      host: 'smtp.mailgun.org',
-      port: 587,
-      secure: false, // true for 465, false for other ports
+      service: 'gmail',
       auth: {
-        user: process.env.MAILGUN_SMTP_USER || 'postmaster@yourdomain.mailgun.org', // Replace with your Mailgun SMTP username
-        pass: process.env.MAILGUN_API_KEY // Your Mailgun API key
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS // This should be your Gmail app password
       }
     });
 
