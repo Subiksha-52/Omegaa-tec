@@ -29,12 +29,14 @@ const sendOTPEmail = async (email, otp) => {
   try {
     const nodemailer = require('nodemailer');
 
-    // Create transporter
+    // Create transporter using SendGrid SMTP
     const transporter = nodemailer.createTransport({
-      service: process.env.EMAIL_SERVICE || 'gmail',
+      host: 'smtp.sendgrid.net',
+      port: 587,
+      secure: false, // true for 465, false for other ports
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
+        user: 'apikey', // SendGrid uses 'apikey' as username
+        pass: process.env.SENDGRID_API_KEY // SendGrid API key as password
       }
     });
 
