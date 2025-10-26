@@ -558,6 +558,34 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+  .product-list-container {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .product-sidebar {
+    width: 220px;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  .product-card {
+    min-height: 380px;
+  }
+
+  .product-image-container {
+    height: 200px;
+  }
+}
+
 @media (max-width: 768px) {
   .product-list-container {
     flex-direction: column;

@@ -281,19 +281,40 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+  .navbar-container {
+    padding: 0 var(--spacing-lg);
+  }
+  
+  .search-section {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .navbar-container {
+    padding: 0 var(--spacing-md);
+  }
+  
+  .search-section {
+    max-width: 300px;
+    margin: 0 var(--spacing-md);
+  }
+  
+  .nav-link {
+    padding: var(--spacing-sm);
+  }
+}
+
 @media (max-width: 768px) {
   .navbar-container {
     padding: 0 var(--spacing-md);
     gap: var(--spacing-md);
+    height: 60px;
   }
 
   .search-section {
     display: none;
-  }
-
-  /* Slightly reduce navbar height on tablets */
-  .navbar-container {
-    height: 60px;
   }
 
   .navbar-menu {

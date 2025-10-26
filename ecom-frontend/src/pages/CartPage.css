@@ -353,14 +353,43 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+  .cart-content {
+    gap: 24px;
+  }
+
+  .cart-item {
+    padding: 20px;
+  }
+
+  .cart-item-img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
 @media (max-width: 1024px) {
   .cart-content {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 20px;
   }
 
   .cart-summary {
     position: static;
+    margin-top: 24px;
+  }
+
+  .cart-item {
+    padding: 16px;
+  }
+
+  .cart-item-img {
+    width: 90px;
+    height: 90px;
+  }
+
+  .cart-item-name {
+    font-size: 1.2rem;
   }
 }
 
