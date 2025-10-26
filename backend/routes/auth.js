@@ -29,14 +29,14 @@ const sendOTPEmail = async (email, otp) => {
   try {
     const nodemailer = require('nodemailer');
 
-    // Create transporter using SendGrid SMTP
+    // Create transporter using Mailgun SMTP
     const transporter = nodemailer.createTransport({
-      host: 'smtp.sendgrid.net',
+      host: 'smtp.mailgun.org',
       port: 587,
       secure: false, // true for 465, false for other ports
       auth: {
-        user: 'apikey', // SendGrid uses 'apikey' as username
-        pass: process.env.SENDGRID_API_KEY // SendGrid API key as password
+        user: process.env.MAILGUN_SMTP_USER || 'postmaster@yourdomain.mailgun.org', // Replace with your Mailgun SMTP username
+        pass: process.env.MAILGUN_API_KEY // Your Mailgun API key
       }
     });
 
