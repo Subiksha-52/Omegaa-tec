@@ -39,7 +39,7 @@ const sendOTPEmail = async (email, otp) => {
     });
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: `"E-commerce Team" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: 'Email Verification Code',
       html: `
@@ -62,11 +62,12 @@ const sendOTPEmail = async (email, otp) => {
       `
     };
 
-    await transporter.sendMail(mailOptions);
-    console.log(`📧 OTP email sent successfully to ${email}`);
+    const result = await transporter.sendMail(mailOptions);
+    console.log(`📧 OTP email sent successfully to ${email}:`, result.messageId);
     return true;
   } catch (error) {
-    console.error('Email sending error:', error);
+    console.error('Email sending error:', error.message);
+    console.error('Full error:', error);
     return false;
   }
 };
