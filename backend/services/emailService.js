@@ -1,15 +1,4 @@
-const nodemailer = require('nodemailer');
-
-// Create transporter - using Gmail SMTP
-const createTransporter = () => {
-  return nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS // This should be your Gmail app password
-    }
-  });
-};
+const https = require('https');
 
 // Email templates
 const emailTemplates = {
@@ -175,7 +164,77 @@ const emailTemplates = {
         <p>Best regards,<br>Your E-commerce Team</p>
       </div>
     `
+  }),
+
+  // OTP template used for email verification
+  otp: (data) => ({
+    subject: 'Email Verification Code',
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #333; text-align: center;">Email Verification</h2>
+        <p>Dear User,</p>
+        <p>Your verification code is:</p>
+
+        <div style="text-align: center; margin: 30px 0;">
+          <span style="font-size: 24px; font-weight: bold; color: #007bff; background-color: #f8f9fa; padding: 10px 20px; border-radius: 5px; display: inline-block;">
+            ${data.otp}
+          </span>
+        </div>
+
+        <p>This code will expire in 10 minutes.</p>
+        <p>If you didn't request this verification, please ignore this email.</p>
+
+        <p>Best regards,<br>${process.env.EMAIL_FROM_NAME || 'Your E-commerce Team'}</p>
+      </div>
+    `
   })
+};
+
+// Internal: send HTTP request to Brevo (no extra deps so works in most Node versions)
+const brevoSend = (payload) => {
+  return new Promise((resolve, reject) => {
+    if (!process.env.BREVO_API_KEY) {
+      return reject(new Error('BREVO_API_KEY environment variable is not set'));
+    }
+
+    const body = JSON.stringify(payload);
+    const options = {
+      hostname: 'api.brevo.com',
+      path: '/v3/smtp/email',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(body),
+        'api-key': process.env.BREVO_API_KEY
+      }
+    };
+
+    const req = https.request(options, (res) => {
+      let data = '';
+      res.on('data', (chunk) => data += chunk);
+      res.on('end', () => {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          try {
+            const parsed = data ? JSON.parse(data) : {};
+            resolve(parsed);
+          } catch (e) {
+            resolve({});
+          }
+        } else {
+          let parsed;
+          try { parsed = JSON.parse(data); } catch (e) { parsed = { message: data }; }
+          const err = new Error(parsed.message || `Brevo API error (status ${res.statusCode})`);
+          err.status = res.statusCode;
+          err.response = parsed;
+          reject(err);
+        }
+      });
+    });
+
+    req.on('error', (err) => reject(err));
+    req.write(body);
+    req.end();
+  });
 };
 
 // Send email function with retry logic
@@ -183,43 +242,40 @@ const sendEmail = async (to, templateName, data) => {
   const maxRetries = 3;
   let lastError;
 
+  const template = emailTemplates[templateName];
+  if (!template) {
+    return { success: false, error: `Email template '${templateName}' not found` };
+  }
+
+  const emailContent = template(data);
+
+  const payload = {
+    sender: {
+      name: process.env.EMAIL_FROM_NAME || 'E-commerce Team',
+      email: process.env.EMAIL_FROM || 'noreply@yourdomain.com'
+    },
+    to: [{ email: to }],
+    subject: emailContent.subject,
+    htmlContent: emailContent.html
+  };
+
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-      const transporter = createTransporter();
-      const template = emailTemplates[templateName];
-
-      if (!template) {
-        throw new Error(`Email template '${templateName}' not found`);
-      }
-
-      const emailContent = template(data);
-
-      const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: to,
-        subject: emailContent.subject,
-        html: emailContent.html
-      };
-
-      const result = await transporter.sendMail(mailOptions);
+      const result = await brevoSend(payload);
       console.log(`📧 Email sent successfully to ${to}: ${emailContent.subject} (attempt ${attempt})`);
-
-      return { success: true, messageId: result.messageId };
+      return { success: true, messageId: result?.messageId || result?.messageId || undefined, raw: result };
     } catch (error) {
-      console.error(`📧 Email sending failed (attempt ${attempt}/${maxRetries}):`, error.message);
+      console.error(`📧 Email sending failed (attempt ${attempt}/${maxRetries}):`, error.message || error);
       lastError = error;
-
       if (attempt < maxRetries) {
-        // Exponential backoff: wait 2^attempt seconds
         const delay = Math.pow(2, attempt) * 1000;
-        console.log(`⏳ Retrying email send in ${delay}ms...`);
         await new Promise(resolve => setTimeout(resolve, delay));
       }
     }
   }
 
-  console.error('📧 Email sending failed after all retries:', lastError.message);
-  return { success: false, error: lastError.message };
+  console.error('📧 Email sending failed after all retries:', lastError && (lastError.message || lastError));
+  return { success: false, error: lastError && (lastError.message || String(lastError)), raw: lastError };
 };
 
 // Specific email functions

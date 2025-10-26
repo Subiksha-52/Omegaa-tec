@@ -5,9 +5,9 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const auth = require('../middleware/auth');
 const rateLimit = require('express-rate-limit');
-const nodemailer = require('nodemailer'); // Import Nodemailer
+// email sending moved to services/emailService (Brevo)
 const crypto = require('crypto'); // For generating OTP
-const { sendForgotPasswordEmail } = require('../services/emailService');
+const { sendEmail, sendForgotPasswordEmail } = require('../services/emailService');
 
 // Rate limiting for login route
 const loginLimiter = rateLimit({
@@ -24,50 +24,13 @@ const generateOTP = () => {
   return Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit OTP
 };
 
-// Send OTP email function
+// Send OTP email using email service (Brevo)
 const sendOTPEmail = async (email, otp) => {
   try {
-    const nodemailer = require('nodemailer');
-
-    // Create transporter using Gmail SMTP
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS // This should be your Gmail app password
-      }
-    });
-
-    const mailOptions = {
-      from: `"E-commerce Team" <noreply@yourdomain.com>`,
-      to: email,
-      subject: 'Email Verification Code',
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #333; text-align: center;">Email Verification</h2>
-          <p>Dear User,</p>
-          <p>Your verification code is:</p>
-
-          <div style="text-align: center; margin: 30px 0;">
-            <span style="font-size: 24px; font-weight: bold; color: #007bff; background-color: #f8f9fa; padding: 10px 20px; border-radius: 5px; display: inline-block;">
-              ${otp}
-            </span>
-          </div>
-
-          <p>This code will expire in 10 minutes.</p>
-          <p>If you didn't request this verification, please ignore this email.</p>
-
-          <p>Best regards,<br>Your E-commerce Team</p>
-        </div>
-      `
-    };
-
-    const result = await transporter.sendMail(mailOptions);
-    console.log(`📧 OTP email sent successfully to ${email}:`, result.messageId);
-    return true;
-  } catch (error) {
-    console.error('Email sending error:', error.message);
-    console.error('Full error:', error);
+    const res = await sendEmail(email, 'otp', { otp });
+    return res.success;
+  } catch (err) {
+    console.error('sendOTPEmail error:', err);
     return false;
   }
 };
