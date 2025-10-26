@@ -194,6 +194,13 @@ const ProductDetails = () => {
   const discount = calculateDiscount();
   const averageRating = reviews.length > 0 ? reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length : 0;
 
+  // Helper to resolve image URLs coming from backend (relative paths) when frontend is served from another origin
+  const baseApiUrl = process.env.REACT_APP_API_URL || 'https://omegaa-tec-1.onrender.com';
+  const resolveImage = (raw) => {
+    if (!raw) return '';
+    return raw.startsWith('http') ? raw : `${baseApiUrl}${raw}`;
+  };
+
   return (
     <div className="product-detail-page">
       {/* Breadcrumb */}
@@ -209,34 +216,47 @@ const ProductDetails = () => {
         {/* Image Gallery */}
         <div className="image-gallery">
           <div className="main-image-container">
-            <img
-              src={product.images?.[selectedImage] || product.image}
-              alt={product.name}
-              className="main-image"
-              onMouseMove={handleImageZoom}
-              onMouseLeave={() => setIsZooming(false)}
-            />
+              {
+                (() => {
+                  const raw = product.images?.[selectedImage] || product.image || '';
+                  const base = process.env.REACT_APP_API_URL || 'https://omegaa-tec-1.onrender.com';
+                  const src = raw.startsWith('http') ? raw : `${base}${raw}`;
+                  return (
+                    <img
+                      src={src}
+                      alt={product.name}
+                      className="main-image"
+                      onMouseMove={handleImageZoom}
+                      onMouseLeave={() => setIsZooming(false)}
+                    />
+                  );
+                })()
+              }
             {isZooming && (
-              <div
-                className="zoom-lens"
-                style={{
-                  backgroundImage: `url(${product.images?.[selectedImage] || product.image})`,
-                  backgroundPosition: `${zoomPosition.x}% ${zoomPosition.y}%`
-                }}
-              />
+                <div
+                  className="zoom-lens"
+                  style={{
+                    backgroundImage: `url(${resolveImage(product.images?.[selectedImage] || product.image)})`,
+                    backgroundPosition: `${zoomPosition.x}% ${zoomPosition.y}%`
+                  }}
+                />
             )}
           </div>
 
           <div className="thumbnail-gallery">
-            {product.images?.map((img, index) => (
-              <img
-                key={index}
-                src={img}
-                alt={`${product.name} ${index + 1}`}
-                className={`thumbnail ${selectedImage === index ? 'active' : ''}`}
-                onClick={() => setSelectedImage(index)}
-              />
-            ))}
+            {product.images?.map((img, index) => {
+              const base = process.env.REACT_APP_API_URL || 'https://omegaa-tec-1.onrender.com';
+              const src = img.startsWith('http') ? img : `${base}${img}`;
+              return (
+                <img
+                  key={index}
+                  src={src}
+                  alt={`${product.name} ${index + 1}`}
+                  className={`thumbnail ${selectedImage === index ? 'active' : ''}`}
+                  onClick={() => setSelectedImage(index)}
+                />
+              );
+            })}
           </div>
         </div>
 
@@ -531,7 +551,7 @@ const ProductDetails = () => {
           <div className="related-products-grid">
             {relatedProducts.slice(0, 4).map(related => (
               <Link key={related._id} to={`/products/${related._id}`} className="related-product-card">
-                <img src={related.image} alt={related.name} />
+                <img src={resolveImage(related.image)} alt={related.name} />
                 <div className="related-product-info">
                   <h3>{related.name}</h3>
                   <p className="price">₹{related.price}</p>

@@ -82,6 +82,25 @@ router.get('/', async (req, res) => {
 });
 
 // GET /api/products/:id (for product details)
+// GET /api/products/related/:id - related products by category (exclude current)
+router.get('/related/:id', async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) return res.status(404).json({ error: 'Product not found' });
+
+    // Find other products in same category, exclude current
+    const related = await Product.find({
+      category: product.category,
+      _id: { $ne: product._id }
+    }).limit(10);
+
+    res.json(related);
+  } catch (err) {
+    console.error('Related products error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.get('/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
