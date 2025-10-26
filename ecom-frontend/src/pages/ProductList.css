@@ -191,20 +191,28 @@
   flex: 1;
   display: flex;
   position: relative;
-  max-width: 400px;
+  max-width: 640px; /* allow larger search area on wide screens */
+  min-width: 260px;
+  align-items: center;
 }
 
 .search-input {
   flex: 1;
-  padding: 10px 14px;
-  border: 2px solid var(--flipkart-gray-200);
+  padding: 12px 18px;
+  border: 1px solid rgba(16,24,40,0.08);
   border-radius: var(--radius-sm) 0 0 var(--radius-sm);
-  font-size: 1rem;
+  font-size: 1.05rem;
   outline: none;
   transition: all var(--transition-fast);
-  background: var(--flipkart-white);
-  color: var(--flipkart-gray-900); /* ensure entered text is visible */
+  background: #ffffff; /* keep input background white for contrast */
+  color: #0f172a; /* dark text so typed letters are visible */
   caret-color: var(--flipkart-blue);
+  min-height: 44px; /* larger touch target */
+}
+
+.search-input::placeholder {
+  color: #6b7280; /* visible placeholder color */
+  opacity: 1;
 }
 
 .search-input:focus {
