@@ -7,10 +7,12 @@
 
 .product-list-container {
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   gap: var(--spacing-lg);
   padding: var(--spacing-lg);
+  box-sizing: border-box;
 }
 
 /* Sidebar */
@@ -194,16 +196,23 @@
 
 .search-input {
   flex: 1;
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: 10px 14px;
   border: 2px solid var(--flipkart-gray-200);
   border-radius: var(--radius-sm) 0 0 var(--radius-sm);
-  font-size: 0.9rem;
+  font-size: 1rem;
   outline: none;
   transition: all var(--transition-fast);
+  background: var(--flipkart-white);
+  color: var(--flipkart-gray-900); /* ensure entered text is visible */
+  caret-color: var(--flipkart-blue);
 }
 
 .search-input:focus {
   border-color: var(--flipkart-blue);
+}
+
+.search-input::placeholder {
+  color: var(--flipkart-gray-400);
 }
 
 .search-button {
@@ -242,11 +251,12 @@
   min-width: 150px;
 }
 
-/* Product Grid */
+/* Product Grid - flexible responsive grid using auto-fit */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: var(--spacing-lg);
+  align-items: start;
 }
 
 .product-grid.list-view {
@@ -571,10 +581,11 @@
 
   .search-form {
     max-width: 100%;
+    width: 100%;
   }
 
   .product-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: var(--spacing-md);
   }
 
@@ -595,7 +606,7 @@
 
 @media (max-width: 480px) {
   .product-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
 
   .product-actions {

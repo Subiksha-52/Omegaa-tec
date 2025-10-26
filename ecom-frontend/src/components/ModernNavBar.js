@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FaSearch, FaShoppingCart, FaUser, FaBars, FaTimes } from 'react-icons/fa';
+import { FaShoppingCart, FaUser, FaBars, FaTimes } from 'react-icons/fa';
 import { AuthContext } from '../contexts/AuthContext';
 import { CartContext } from '../contexts/CartContext';
 import './ModernNavBar.css';
@@ -42,25 +42,11 @@ const ModernNavBar = () => {
         {/* Logo */}
         <Link to="/" className="navbar-brand">
           <div className="brand-logo">
-            <span className="logo-text">Secure<span className="logo-accent">Tech</span></span>
+            <span className="logo-text">Omeegaa<span className="logo-accent">Tec</span></span>
           </div>
         </Link>
 
-        {/* Search Bar */}
-        <div className="search-section">
-          <form onSubmit={handleSearch} className="search-form">
-            <input
-              type="text"
-              placeholder="Search for products, brands and more"
-              className="search-input"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <button type="submit" className="search-btn">
-              <FaSearch />
-            </button>
-          </form>
-        </div>
+        {/* Search removed per request (search icon and command box hidden) */}
 
         {/* Navigation Menu */}
         <div className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>

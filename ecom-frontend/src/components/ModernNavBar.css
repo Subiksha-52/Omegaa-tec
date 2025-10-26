@@ -13,12 +13,14 @@
 
 .navbar-container {
   max-width: 1200px;
+  width: 100%;
+  box-sizing: border-box;
   margin: 0 auto;
   padding: 0 var(--spacing-lg);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 56px;
+  height: 64px; /* slightly taller for better touch targets */
   gap: var(--spacing-lg);
 }
 
@@ -33,7 +35,7 @@
 }
 
 .logo-text {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: var(--flipkart-blue);
   letter-spacing: -0.025em;
@@ -289,6 +291,11 @@
     display: none;
   }
 
+  /* Slightly reduce navbar height on tablets */
+  .navbar-container {
+    height: 60px;
+  }
+
   .navbar-menu {
     position: fixed;
     top: 56px;
@@ -337,9 +344,30 @@
   }
 
   .logo-text {
-    font-size: 1.25rem;
+    font-size: 1.05rem;
   }
 
+  /* Mobile: ensure touch targets are large enough */
+  .mobile-menu-toggle {
+    font-size: 20px;
+    padding: var(--spacing-xs);
+  }
+
+
+/* Desktop breakpoint adjustments */
+@media (min-width: 1201px) {
+  .navbar-container {
+    padding: 0 24px;
+  }
+}
+
+/* Handle orientation changes (mobile landscape vs portrait) */
+@media (orientation: landscape) and (max-width: 768px) {
+  .navbar-container {
+    height: 56px;
+  }
+  .logo-text { font-size: 1.1rem; }
+}
   .navbar-actions {
     gap: var(--spacing-xs);
   }
