@@ -41,7 +41,7 @@ const sendOTPEmail = async (email, otp) => {
     });
 
     const mailOptions = {
-      from: `"E-commerce Team" <${process.env.EMAIL_USER}>`,
+      from: `"E-commerce Team" <noreply@yourdomain.com>`,
       to: email,
       subject: 'Email Verification Code',
       html: `
