@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 
 function AdminCategories() {
   const [categories, setCategories] = useState([]);
@@ -16,10 +16,8 @@ function AdminCategories() {
   const fetchCategories = async () => {
     try {
       setLoading(true);
-      const adminToken = localStorage.getItem('adminToken');
-      const headers = adminToken ? { Authorization: `Bearer ${adminToken}` } : {};
-      const response = await axios.get(`http://localhost:5000/api/categories`, { headers });
-      setCategories(response.data);
+  const response = await api.get('/api/categories');
+  setCategories(response.data);
     } catch (err) {
       console.error('Error fetching categories:', err);
       setError('Failed to load categories');
@@ -38,14 +36,11 @@ function AdminCategories() {
     setError('');
 
     try {
-      const adminToken = localStorage.getItem('adminToken');
-      const headers = adminToken ? { Authorization: `Bearer ${adminToken}` } : {};
-
       if (editingId) {
-        await axios.put(`http://localhost:5000/api/categories/${editingId}`, formData, { headers });
+        await api.put(`/api/categories/${editingId}`, formData);
         setEditingId(null);
       } else {
-        await axios.post(`http://localhost:5000/api/categories`, formData, { headers });
+        await api.post('/api/categories', formData);
       }
 
       setFormData({ name: '' });
@@ -68,9 +63,7 @@ function AdminCategories() {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this category?')) return;
     try {
-      const adminToken = localStorage.getItem('adminToken');
-      const headers = adminToken ? { Authorization: `Bearer ${adminToken}` } : {};
-      await axios.delete(`http://localhost:5000/api/categories/${id}`, { headers });
+  await api.delete(`/api/categories/${id}`);
       fetchCategories();
     } catch (err) {
       setError('Failed to delete category');

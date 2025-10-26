@@ -3,6 +3,21 @@ import api from '../api';
 import { AuthContext } from '../contexts/AuthContext';
 import './AdminProducts.css';
 
+// Resolve image URLs robustly so frontend works both locally and in production.
+// Uses REACT_APP_API_URL or the axios instance baseURL as fallback.
+const resolveImageUrl = (path) => {
+  if (!path) return '/placeholder.png';
+  try {
+    // If already absolute URL, return as-is
+    if (/^https?:\/\//i.test(path)) return path;
+    const base = process.env.REACT_APP_API_URL || api.defaults.baseURL || '';
+    // ensure exactly one slash between base and path
+    return `${base.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
+  } catch (e) {
+    return '/placeholder.png';
+  }
+};
+
 const AdminProducts = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -280,10 +295,10 @@ const AdminProducts = () => {
         {products.map(product => (
           <div key={product._id} className="product-card">
             <img
-              src={`http://localhost:5000${product.image}`}
+              src={resolveImageUrl(product.image)}
               alt={product.name}
               className="product-image"
-              onError={(e) => { e.target.src = '/placeholder.png'; }}
+              onError={(e) => { e.target.onerror = null; e.target.src = '/placeholder.png'; }}
             />
             <div className="product-info">
               <h4>{product.name}</h4>
