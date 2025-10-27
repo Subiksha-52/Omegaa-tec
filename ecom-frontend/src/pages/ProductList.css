@@ -235,6 +235,50 @@
   background-color: #f8fafc;
 }
 
+/* More specific rules so ProductList search overrides global/navbar styles */
+.product-main-content .search-form {
+  max-width: 900px;
+  min-width: 400px;
+  height: 56px; /* ensure consistent height */
+  box-shadow: 0 3px 8px rgba(16,24,40,0.12);
+  background: #ffffff;
+  border-radius: var(--radius-md);
+}
+
+.product-main-content .search-form .search-input {
+  padding: 14px 22px;
+  border: 2px solid var(--flipkart-blue);
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+  font-size: 1.2rem;
+  min-height: 48px;
+  height: 100%;
+  color: var(--flipkart-gray-900);
+  background: #ffffff;
+  box-shadow: none;
+}
+
+.product-main-content .search-form .search-input::placeholder {
+  color: #93a0b3; /* slightly darker placeholder for visibility */
+  font-size: 1.1rem;
+}
+
+.product-main-content .search-form .search-button {
+  height: 100%;
+  min-width: 88px;
+  padding: 0 20px;
+  font-size: 1.35rem;
+  border: 2px solid var(--flipkart-blue);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-main-content .search-form .search-button svg {
+  width: 1.1em;
+  height: 1.1em;
+}
+
 .search-button {
   background: var(--flipkart-blue);
   color: var(--flipkart-white);
