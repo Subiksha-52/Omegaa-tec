@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import api from '../api';
 import './ForgotPassword.css';
 import { FaEnvelope, FaLock, FaArrowLeft } from 'react-icons/fa';
 
@@ -17,7 +18,8 @@ const ForgotPassword = () => {
     setMessage('');
 
     try {
-      const response = await axios.post('/api/auth/forgot-password', { email });
+  // Use the app-wide API instance so requests go to the configured backend (not the frontend host)
+  const response = await api.post('/api/auth/forgot-password', { email });
       setMessage(response.data.msg);
     } catch (err) {
       setError(err.response?.data?.msg || 'An error occurred');
