@@ -249,8 +249,18 @@ router.post('/forgot-password', async (req, res) => {
 
     // Send reset email
     const emailSent = await sendForgotPasswordEmail(user.email, resetToken);
+    // Log result for debugging (do not leak secrets)
+    console.log('Forgot password email result:', {
+      to: user.email,
+      success: !!emailSent.success,
+      messageId: emailSent.messageId || null
+    });
+
     if (!emailSent.success) {
-      return res.status(500).json({ error: 'Failed to send reset email' });
+      console.error('Forgot password email error (detailed):', emailSent.error || emailSent.raw || emailSent);
+      // In development return the raw error to help debugging; in production keep generic
+      const isDev = process.env.NODE_ENV !== 'production';
+      return res.status(500).json({ error: 'Failed to send reset email', details: isDev ? (emailSent.error || emailSent.raw || emailSent) : undefined });
     }
 
     res.json({ success: true, msg: 'Password reset link sent to your email' });
