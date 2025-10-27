@@ -185,7 +185,7 @@ const addToCart = async (productId, quantity) => {
             </div>
 
             <div className="search-sort-row">
-              <form className="search-form" onSubmit={handleSearchSubmit}>
+              <form className="search-form product-search-form" onSubmit={handleSearchSubmit}>
                 <input
                   type="text"
                   className="search-input"

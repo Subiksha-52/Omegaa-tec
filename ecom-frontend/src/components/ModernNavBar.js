@@ -42,7 +42,7 @@ const ModernNavBar = () => {
         {/* Logo */}
         <Link to="/" className="navbar-brand">
           <div className="brand-logo">
-            <span className="logo-text">Omeegaa<span className="logo-accent">Tec</span></span>
+            <span className="logo-text">Omegaatec</span>
           </div>
         </Link>
 

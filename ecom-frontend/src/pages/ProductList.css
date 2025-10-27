@@ -279,6 +279,56 @@
   height: 1.1em;
 }
 
+/* Strong, specific overrides for product page search (unique class) */
+.product-main-content .product-search-form {
+  max-width: 100%;
+  min-width: 440px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 6px 18px rgba(16,24,40,0.12);
+  border-radius: 12px;
+  background: linear-gradient(90deg, #ffffff 0%, #ffffff 100%);
+  padding: 4px;
+}
+
+.product-main-content .product-search-form .search-input {
+  padding: 16px 24px;
+  border: 2px solid rgba(59,130,246,0.95);
+  border-right: none;
+  border-radius: 10px 0 0 10px;
+  font-size: 1.15rem;
+  height: 56px;
+  min-height: 56px;
+  color: #0f172a;
+  background: #ffffff;
+  box-shadow: none;
+}
+
+.product-main-content .product-search-form .search-input::placeholder {
+  color: #7f8a99;
+  font-size: 1.05rem;
+}
+
+.product-main-content .product-search-form .search-button {
+  height: 56px;
+  min-width: 92px;
+  padding: 0 18px;
+  border-radius: 0 10px 10px 0;
+  background: linear-gradient(90deg,#6d5df6 0%,#9b63e8 100%);
+  border: 2px solid rgba(59,130,246,0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  color: #fff;
+}
+
+.product-main-content .product-search-form .search-button svg {
+  width: 1.05em;
+  height: 1.05em;
+}
+
 .search-button {
   background: var(--flipkart-blue);
   color: var(--flipkart-white);
