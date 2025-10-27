@@ -185,18 +185,8 @@ const addToCart = async (productId, quantity) => {
             </div>
 
             <div className="search-sort-row">
-              <form className="search-form product-search-form" onSubmit={handleSearchSubmit}>
-                <input
-                  type="text"
-                  className="search-input"
-                  placeholder="Search for products, brands and more"
-                  value={search}
-                  onChange={e => setSearch(e.target.value)}
-                />
-                <button type="submit" className="search-button">
-                  <FaSearch />
-                </button>
-              </form>
+              {/* Search removed on products page per request - leaving space for sort controls */}
+              <div style={{ flex: 1 }} />
 
               <div className="sort-group">
                 <label className="sort-label">Sort by:</label>
