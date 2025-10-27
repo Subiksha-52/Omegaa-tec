@@ -36,7 +36,20 @@ api.interceptors.request.use(
         config.headers.Authorization = `Bearer ${token}`;
         console.log('✅ API: Using user token for request');
       } else {
-        console.warn('⚠️ API: No token available for request to', config.url);
+        // Don't warn about missing tokens for public endpoints
+        const publicEndpoints = [
+          '/api/auth/login',
+          '/api/auth/register',
+          '/api/auth/forgot-password',
+          '/api/auth/reset-password',
+          '/api/auth/verify'
+        ];
+
+        const requestUrl = typeof config.url === 'string' ? config.url : '';
+        const isPublic = publicEndpoints.some(endpoint => requestUrl.includes(endpoint));
+        if (!isPublic) {
+          console.warn('⚠️ API: No token available for request to', config.url);
+        }
       }
     } catch (e) {
       // ignore localStorage errors
