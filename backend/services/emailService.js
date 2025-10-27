@@ -143,7 +143,7 @@ const emailTemplates = {
     `
   }),
 
-  forgotPassword: (resetToken) => ({
+  forgotPassword: (data) => ({
     subject: 'Password Reset Request',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -152,7 +152,7 @@ const emailTemplates = {
         <p>You have requested to reset your password. Click the link below to reset your password:</p>
 
         <div style="text-align: center; margin: 30px 0;">
-          <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/reset-password/${resetToken}"
+          <a href="${process.env.FRONTEND_URL}/reset-password/${data.resetToken}"
              style="background-color: #007bff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; display: inline-block;">
             Reset Password
           </a>
@@ -161,7 +161,7 @@ const emailTemplates = {
         <p>This link will expire in 1 hour.</p>
         <p>If you didn't request this password reset, please ignore this email.</p>
 
-        <p>Best regards,<br>Your E-commerce Team</p>
+        <p>Best regards,<br>${process.env.EMAIL_FROM_NAME || 'Your E-commerce Team'}</p>
       </div>
     `
   }),
@@ -300,7 +300,7 @@ const sendRefundProcessed = async (userEmail, order) => {
 };
 
 const sendForgotPasswordEmail = async (userEmail, resetToken) => {
-  return await sendEmail(userEmail, 'forgotPassword', resetToken);
+  return await sendEmail(userEmail, 'forgotPassword', { resetToken });
 };
 
 module.exports = {

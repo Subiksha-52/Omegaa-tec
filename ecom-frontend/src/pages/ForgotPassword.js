@@ -18,10 +18,12 @@ const ForgotPassword = () => {
     setMessage('');
 
     try {
-  // Use the app-wide API instance so requests go to the configured backend (not the frontend host)
-  const response = await api.post('/api/auth/forgot-password', { email });
+        // Use direct axios call for public endpoint
+        const baseURL = process.env.REACT_APP_API_URL || 'https://omegaa-tec-1.onrender.com';
+        const response = await axios.post(`${baseURL}/api/auth/forgot-password`, { email });
       setMessage(response.data.msg);
     } catch (err) {
+        console.error('Forgot password error:', err.response?.data || err.message);
       setError(err.response?.data?.msg || 'An error occurred');
     } finally {
       setLoading(false);
