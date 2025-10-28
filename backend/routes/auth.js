@@ -249,11 +249,12 @@ router.post('/forgot-password', async (req, res) => {
 
     // Send reset email
     const emailSent = await sendForgotPasswordEmail(user.email, resetToken);
-    // Log result for debugging (do not leak secrets)
+    // Log result for debugging (do not leak secrets). Include raw Brevo response only in non-production.
     console.log('Forgot password email result:', {
       to: user.email,
       success: !!emailSent.success,
-      messageId: emailSent.messageId || null
+      messageId: emailSent.messageId || null,
+      raw: process.env.NODE_ENV !== 'production' ? emailSent.raw : undefined
     });
 
     if (!emailSent.success) {
