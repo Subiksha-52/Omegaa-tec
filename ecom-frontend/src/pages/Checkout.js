@@ -13,6 +13,7 @@ export default function Checkout() {
   const [isBuyNow, setIsBuyNow] = useState(false);
   const [user, setUser] = useState({ name: "", address: "" });
   const [paymentMethod, setPaymentMethod] = useState("gpay");
+  const [selectedBank, setSelectedBank] = useState('');
   const [upiId, setUpiId] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -122,10 +123,10 @@ export default function Checkout() {
 
         // 2. Open Razorpay checkout
         const options = {
-          key: "rzp_test_7ALd8ndNWkk7vu", // Replace with your Razorpay Key ID
+          key: process.env.REACT_APP_RAZORPAY_KEY || "rzp_test_7ALd8ndNWkk7vu",
           amount: amount,
           currency: currency,
-          name: "Your Shop Name",
+          name: "Omegaatec",
           description: "Order Payment",
           order_id: order_id,
           handler: async function (response) {
@@ -190,15 +191,16 @@ export default function Checkout() {
             color: "#667eea"
           },
           method: {
-            upi: true, // Enables UPI (GPay, PhonePe, etc.)
+            upi: (paymentMethod === 'gpay' || paymentMethod === 'upi'),
             card: false,
-            netbanking: false,
+            netbanking: (paymentMethod === 'netbanking'),
             wallet: false
           },
-          upi: {
+          upi: (paymentMethod === 'gpay' || paymentMethod === 'upi') ? {
             flow: "collect",
             vpa: upiId
-          }
+          } : undefined,
+          netbanking: (paymentMethod === 'netbanking' && selectedBank) ? { bank: selectedBank } : undefined
         };
         setLoading(false);
         const rzp = new window.Razorpay(options);
@@ -428,6 +430,21 @@ export default function Checkout() {
               </label>
 
               <label
+                className={`payment-option ${selectedPaymentOption === "netbanking" ? "selected" : ""}`}
+                onClick={() => handlePaymentMethodChange("netbanking")}
+              >
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="netbanking"
+                  checked={paymentMethod === "netbanking"}
+                  onChange={() => handlePaymentMethodChange("netbanking")}
+                />
+                <FaUniversity style={{ color: "#667eea", fontSize: "1.4rem" }} />
+                <span>Netbanking</span>
+              </label>
+
+              <label
                 className={`payment-option ${selectedPaymentOption === "cod" ? "selected" : ""}`}
                 onClick={() => handlePaymentMethodChange("cod")}
               >
@@ -456,6 +473,20 @@ export default function Checkout() {
                 <p className="upi-help">
                   Enter your UPI ID in the format: username@bankname
                 </p>
+              </div>
+            )}
+
+            {paymentMethod === "netbanking" && (
+              <div className="netbanking-section">
+                <p>Select your bank (optional). The Razorpay checkout will also show available netbanking options.</p>
+                <select value={selectedBank} onChange={e => setSelectedBank(e.target.value)}>
+                  <option value="">-- Select Bank (optional) --</option>
+                  <option value="HDFC">HDFC Bank</option>
+                  <option value="ICICI">ICICI Bank</option>
+                  <option value="AXIS">Axis Bank</option>
+                  <option value="SBI">State Bank of India</option>
+                  <option value="KOTAK">Kotak Mahindra Bank</option>
+                </select>
               </div>
             )}
 

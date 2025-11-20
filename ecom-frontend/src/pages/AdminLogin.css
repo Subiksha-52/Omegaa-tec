@@ -1,4 +1,4 @@
-/* Admin Login Page Styles */
+/* AdminLogin.css archived — original moved to src/_archived_pages/AdminLogin.css.txt */
 .admin-login-container {
   min-height: 100vh;
   display: flex;
@@ -198,6 +198,7 @@
     0 0 0 3px rgba(102, 126, 234, 0.1),
     0 8px 25px rgba(102, 126, 234, 0.15);
   transform: translateY(-2px);
+  caret-color: #00ff00;
 }
 
 .form-group input:focus + label,

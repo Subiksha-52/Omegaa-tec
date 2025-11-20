@@ -6,7 +6,6 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
-import Dashboard from './pages/Dashboard';
 import ProductList from './pages/ProductList';
 import ProductDetails from './pages/ProductDetails';
 import AboutUs from './pages/AboutUs';
@@ -20,7 +19,6 @@ import Footer from './components/Footer';
 import './App.css';
 import ProfileSettings from './pages/ProfileSettings';
 import AdminDashboard from './pages/AdminDashboard';
-import AdminLogin from './pages/AdminLogin';
 import FlipkartDashboard from './pages/FlipkartDashboard';
 import UserOrderPage from './pages/UserOrderPage';
 import OrderTracking from './pages/OrderTracking';
@@ -51,7 +49,6 @@ const App = () => (
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/order-success" element={<OrderSuccess />} />
           <Route path="/profile-settings" element={<ProfileSettings />} />
-          <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/user-orders" element={<UserOrderPage />} />
           <Route path="/track-order" element={<OrderTracking />} />

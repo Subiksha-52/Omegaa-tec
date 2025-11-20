@@ -1,0 +1,3 @@
+.wishlist-container {
+  /* Archived stylesheet for wishlist page */
+}
