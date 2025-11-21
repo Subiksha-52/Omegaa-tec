@@ -435,10 +435,6 @@
   60% { transform: translateY(-3px); }
 }
 
-.OTP-override {
-  /* empty helper to mark start of OTP block (no styles applied) */
-}
-
 /* OTP Verification Styles - single large input */
 .otp-container {
   display: block;
