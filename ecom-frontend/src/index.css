@@ -162,6 +162,17 @@ input[type="password"], input[type="number"], input[type="tel"], input[type="ema
   color: var(--flipkart-gray-900);
 }
 
+/* Strong override: ensure all inputs/placeholders are readable across components */
+input, textarea, select, .auth-container input, .form-group input, .search-input, .price-input {
+  color: #111827 !important; /* very dark text */
+  caret-color: #111827 !important;
+}
+
+input::placeholder, textarea::placeholder, .auth-container input::placeholder, .form-group input::placeholder, .search-input::placeholder {
+  color: #6b7280 !important; /* readable neutral placeholder */
+  opacity: 1 !important;
+}
+
 /* Reduce motion preference */
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
