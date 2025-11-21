@@ -145,6 +145,23 @@ input, textarea, select, button {
   font-size: 1rem;
 }
 
+/* Ensure input text is visible across the app */
+input, textarea, select {
+  color: var(--flipkart-gray-900); /* strong dark text for readability */
+  caret-color: var(--flipkart-gray-900);
+}
+
+/* Visible placeholders */
+input::placeholder, textarea::placeholder {
+  color: #6b7280; /* neutral but readable placeholder */
+  opacity: 1; /* some browsers reduce placeholder opacity */
+}
+
+/* Make number/password inputs show text clearly too */
+input[type="password"], input[type="number"], input[type="tel"], input[type="email"] {
+  color: var(--flipkart-gray-900);
+}
+
 /* Reduce motion preference */
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }

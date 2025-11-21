@@ -365,20 +365,26 @@
 
 .order-actions {
   display: flex;
-  gap: 15px;
-  justify-content: center;
+  gap: 16px;
+  justify-content: flex-end; /* align buttons to the right */
   padding-top: 20px;
   border-top: 2px solid #f0f0f0;
 }
 
 .action-btn {
-  padding: 12px 24px;
+  padding: 12px 22px;
+  min-width: 160px; /* ensure buttons have a consistent width */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 14px;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .action-btn.primary {

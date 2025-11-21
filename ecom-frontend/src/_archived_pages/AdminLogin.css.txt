@@ -1,2 +1,0 @@
-/* Archived AdminLogin.css */
-/* original file moved to _archived_pages */
