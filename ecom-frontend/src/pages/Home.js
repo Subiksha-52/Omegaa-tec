@@ -323,10 +323,7 @@ const Home = () => {
               <Link to="/contact" className="btn-secondary">
                 Contact Us
               </Link>
-              <Link to="/admin/login" className="btn-admin">
-                <FaUserShield />
-                Admin Login
-              </Link>
+              {/* Admin Login removed from homepage - access via /admin/login directly */}
             </div>
           </div>
         </div>
