@@ -21,7 +21,11 @@ const AdminLogin = () => {
 
 		if (passkey === ADMIN_PASSKEY) {
 			// mark local session for admin (simple client-side guard)
-			try { localStorage.setItem('isAdmin', 'true'); } catch (err) {}
+			try {
+				// store a simple token flag; replace with real auth in production
+				localStorage.setItem('adminToken', Date.now().toString());
+				localStorage.setItem('isAdmin', 'true');
+			} catch (err) {}
 			navigate('/admin/dashboard');
 		} else {
 			setError('Invalid passkey');

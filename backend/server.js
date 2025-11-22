@@ -19,17 +19,22 @@ app.use(express.json());
 // -------------------------------------------
 // ✅ Configure CORS
 // -------------------------------------------
-app.use(
-  cors({
-    origin: [process.env.FRONTEND_URL || 'https://omegaa-tec-47ld.vercel.app', 'https://omegaa-tec-47ld.vercel.app'],
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
-  })
-);
+// Configure CORS: allow the configured FRONTEND_URL; if not set,
+// fall back to reflecting the request origin (permissive - dev only).
+const frontendUrl = process.env.FRONTEND_URL || 'https://omegaa-tec-47ld.vercel.app';
+const allowAllWhenNoEnv = !process.env.FRONTEND_URL;
 
-// Handle preflight requests
-app.options('*', cors());
+const corsOptions = {
+  origin: allowAllWhenNoEnv ? true : [frontendUrl, 'https://omegaa-tec-47ld.vercel.app'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+};
+
+app.use(cors(corsOptions));
+
+// Handle preflight requests using the same options
+app.options('*', cors(corsOptions));
 
 // -------------------------------------------
 // ✅ Static files (for uploaded images, etc.)

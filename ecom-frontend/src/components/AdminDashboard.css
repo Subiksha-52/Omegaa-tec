@@ -418,6 +418,25 @@ body {
   font-size: 14px;
 }
 
+/* Admin header logout button */
+.admin-logout-btn {
+  margin-left: 12px;
+  padding: 8px 12px;
+  background: transparent;
+  color: var(--admin-text-secondary);
+  border: 1px solid var(--admin-border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--admin-transition);
+  font-weight: 600;
+}
+
+.admin-logout-btn:hover {
+  background: var(--admin-accent);
+  color: var(--admin-text-primary);
+  border-color: var(--admin-accent-hover);
+}
+
 .btn-edit {
   background-color: #3498db;
   color: white;
