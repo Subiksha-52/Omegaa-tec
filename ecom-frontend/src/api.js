@@ -42,7 +42,8 @@ api.interceptors.request.use(
           '/api/auth/register',
           '/api/auth/forgot-password',
           '/api/auth/reset-password',
-          '/api/auth/verify'
+          '/api/auth/verify',
+          '/api/auth/admin-login'  // Admin login is a public endpoint
         ];
 
         const requestUrl = typeof config.url === 'string' ? config.url : '';
