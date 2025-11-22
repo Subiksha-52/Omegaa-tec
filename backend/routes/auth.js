@@ -358,4 +358,42 @@ router.get('/profile', auth, async (req, res) => {
   }
 });
 
+// Admin Login - Secure passkey validation
+router.post('/admin-login', async (req, res) => {
+  try {
+    const { passkey } = req.body;
+
+    if (!passkey) {
+      return res.status(400).json({ msg: 'Admin passkey required' });
+    }
+
+    // Get admin passkey from environment variable (must be set on server)
+    const ADMIN_PASSKEY = process.env.ADMIN_PASSKEY;
+    
+    if (!ADMIN_PASSKEY) {
+      console.error('⚠️ ADMIN_PASSKEY not set in environment variables');
+      return res.status(500).json({ msg: 'Admin authentication not configured' });
+    }
+
+    // Validate passkey
+    if (passkey !== ADMIN_PASSKEY) {
+      console.warn('❌ Invalid admin passkey attempt');
+      return res.status(401).json({ msg: 'Invalid passkey' });
+    }
+
+    // Generate JWT token for admin session (valid for 24 hours)
+    const token = jwt.sign(
+      { admin: true, role: 'admin' },
+      process.env.JWT_SECRET || 'your-secret-key',
+      { expiresIn: '24h' }
+    );
+
+    console.log('✅ Admin login successful');
+    res.json({ success: true, msg: 'Admin authenticated', token });
+  } catch (err) {
+    console.error('Admin login error:', err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 module.exports = router;

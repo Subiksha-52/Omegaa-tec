@@ -10,6 +10,7 @@ function AdminHeader({OpenSidebar}) {
       localStorage.removeItem('adminToken');
       localStorage.removeItem('isAdmin');
     } catch (err) {}
+    // Redirect to admin login (not regular login)
     navigate('/admin/login');
   };
 

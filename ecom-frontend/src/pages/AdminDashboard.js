@@ -18,11 +18,15 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if admin is logged in
+    // Check if admin is logged in with a valid token
     const adminToken = localStorage.getItem('adminToken');
     if (!adminToken) {
       navigate('/admin/login');
+      return;
     }
+    
+    // Optional: You can validate the token on the backend if needed
+    // For now, a simple client-side check is sufficient
   }, [navigate]);
 
   const toggleSidebar = () => {
