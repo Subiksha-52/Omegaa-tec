@@ -28,12 +28,13 @@ const AdminLogin = () => {
         localStorage.setItem('isAdmin', 'true');
         navigate('/admin/dashboard');
       } else {
-        setError('Login failed');
+        setError(response.data.msg || 'Login failed');
       }
     } catch (err) {
-      const errorMsg = err.response?.data?.msg || 'Invalid passkey';
+      // Show backend error message if available, otherwise show generic error
+      const errorMsg = err.response?.data?.msg || err.response?.data?.error || 'Login failed. Please try again.';
       setError(errorMsg);
-      console.error('Admin login error:', err);
+      console.error('Admin login error:', err.response?.data || err.message);
     } finally {
       setLoading(false);
     }

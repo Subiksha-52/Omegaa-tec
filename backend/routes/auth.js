@@ -370,14 +370,19 @@ router.post('/admin-login', async (req, res) => {
     // Get admin passkey from environment variable (must be set on server)
     const ADMIN_PASSKEY = process.env.ADMIN_PASSKEY;
     
+    console.log('🔐 Admin login attempt - ADMIN_PASSKEY set:', !!ADMIN_PASSKEY);
+    
     if (!ADMIN_PASSKEY) {
-      console.error('⚠️ ADMIN_PASSKEY not set in environment variables');
-      return res.status(500).json({ msg: 'Admin authentication not configured' });
+      console.error('❌ ADMIN_PASSKEY not set in environment variables');
+      return res.status(500).json({ msg: 'Admin authentication not configured on server' });
     }
 
-    // Validate passkey
-    if (passkey !== ADMIN_PASSKEY) {
-      console.warn('❌ Invalid admin passkey attempt');
+    console.log('📝 Passkey length:', passkey.length, 'Expected length:', ADMIN_PASSKEY.length);
+    console.log('📝 Passkey match:', passkey === ADMIN_PASSKEY);
+
+    // Validate passkey (trim to remove accidental whitespace)
+    if (passkey.trim() !== ADMIN_PASSKEY.trim()) {
+      console.warn('❌ Invalid admin passkey attempt - mismatch');
       return res.status(401).json({ msg: 'Invalid passkey' });
     }
 
@@ -388,11 +393,11 @@ router.post('/admin-login', async (req, res) => {
       { expiresIn: '24h' }
     );
 
-    console.log('✅ Admin login successful');
+    console.log('✅ Admin login successful - token generated');
     res.json({ success: true, msg: 'Admin authenticated', token });
   } catch (err) {
-    console.error('Admin login error:', err);
-    res.status(500).json({ error: 'Server error' });
+    console.error('❌ Admin login error:', err);
+    res.status(500).json({ error: 'Server error', details: err.message });
   }
 });
 
