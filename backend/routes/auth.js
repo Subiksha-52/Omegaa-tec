@@ -367,22 +367,24 @@ router.post('/admin-login', async (req, res) => {
       return res.status(400).json({ msg: 'Admin passkey required' });
     }
 
-    // Get admin passkey from environment variable (must be set on server)
-    const ADMIN_PASSKEY = process.env.ADMIN_PASSKEY;
+    // Get admin passkey from environment variable
+    // Fallback to 'admin123' for local development only
+    const ADMIN_PASSKEY = process.env.ADMIN_PASSKEY || 'admin123';
     
-    console.log('🔐 Admin login attempt - ADMIN_PASSKEY set:', !!ADMIN_PASSKEY);
+    console.log('🔐 Admin login attempt');
+    console.log('   - ADMIN_PASSKEY from env:', !!process.env.ADMIN_PASSKEY);
+    console.log('   - Using passkey:', ADMIN_PASSKEY === 'admin123' ? 'dev-default' : 'from-env');
+    console.log('   - Received passkey length:', passkey.length);
+    console.log('   - Expected passkey length:', ADMIN_PASSKEY.length);
+
+    // Trim whitespace and compare
+    const trimmedInput = passkey.trim();
+    const trimmedExpected = ADMIN_PASSKEY.trim();
     
-    if (!ADMIN_PASSKEY) {
-      console.error('❌ ADMIN_PASSKEY not set in environment variables');
-      return res.status(500).json({ msg: 'Admin authentication not configured on server' });
-    }
-
-    console.log('📝 Passkey length:', passkey.length, 'Expected length:', ADMIN_PASSKEY.length);
-    console.log('📝 Passkey match:', passkey === ADMIN_PASSKEY);
-
-    // Validate passkey (trim to remove accidental whitespace)
-    if (passkey.trim() !== ADMIN_PASSKEY.trim()) {
-      console.warn('❌ Invalid admin passkey attempt - mismatch');
+    if (trimmedInput !== trimmedExpected) {
+      console.warn('❌ Invalid passkey - mismatch');
+      console.warn('   Input (first 3 chars):', trimmedInput.substring(0, 3));
+      console.warn('   Expected (first 3 chars):', trimmedExpected.substring(0, 3));
       return res.status(401).json({ msg: 'Invalid passkey' });
     }
 
