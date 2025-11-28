@@ -310,33 +310,10 @@ router.post('/reset-password', async (req, res) => {
   }
 });
 
-// Admin login with passkey
-router.post('/admin-login', async (req, res) => {
-  try {
-    const { passkey } = req.body;
-    const adminPasskey = process.env.ADMIN_PASSKEY || 'admin123'; // Default passkey, should be set in .env
-
-    if (passkey !== adminPasskey) {
-      return res.status(401).json({ msg: 'Invalid admin passkey' });
-    }
-
-    // Create a JWT token for admin with admin role
-    const adminToken = jwt.sign(
-      { id: 'admin', role: 'admin' },
-      process.env.JWT_SECRET,
-      { expiresIn: '24h' }
-    );
-
-    res.json({
-      token: adminToken,
-      role: 'admin',
-      msg: 'Admin login successful'
-    });
-  } catch (err) {
-    console.error('Admin login error:', err);
-    res.status(500).json({ error: 'Server error' });
-  }
-});
+// (Removed duplicate simple admin-login handler) - consolidated to a single
+// improved `/admin-login` handler further down with better logging, trimming
+// and a safe JWT fallback. Keeping the enhanced implementation avoids
+// conflicting route handlers which could return inconsistent error messages.
 
 // Get current user
 router.get('/me', auth, async (req, res) => {
