@@ -362,6 +362,19 @@ router.post('/admin-login', async (req, res) => {
       console.warn('❌ Invalid passkey - mismatch');
       console.warn('   Input (first 3 chars):', trimmedInput.substring(0, 3));
       console.warn('   Expected (first 3 chars):', trimmedExpected.substring(0, 3));
+
+      // In non-production show lightweight debug details to help troubleshooting
+      if (process.env.NODE_ENV !== 'production') {
+        return res.status(401).json({
+          msg: 'Invalid passkey',
+          debug: {
+            hasEnv: !!process.env.ADMIN_PASSKEY,
+            expectedLength: trimmedExpected.length,
+            receivedLength: trimmedInput.length
+          }
+        });
+      }
+
       return res.status(401).json({ msg: 'Invalid passkey' });
     }
 
